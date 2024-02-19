@@ -4,3 +4,9 @@ D:\Programming\Test\Program\Program\obj\Debug\Program.csproj.AssemblyReference.c
 D:\Programming\Test\Program\Program\obj\Debug\Program.csproj.CoreCompileInputs.cache
 D:\Programming\Test\Program\Program\obj\Debug\Program.exe
 D:\Programming\Test\Program\Program\obj\Debug\Program.pdb
+D:\Programming\C#\BisectionMethod\Program\bin\Debug\Program.exe
+D:\Programming\C#\BisectionMethod\Program\bin\Debug\Program.pdb
+D:\Programming\C#\BisectionMethod\Program\obj\Debug\Program.csproj.AssemblyReference.cache
+D:\Programming\C#\BisectionMethod\Program\obj\Debug\Program.csproj.CoreCompileInputs.cache
+D:\Programming\C#\BisectionMethod\Program\obj\Debug\Program.exe
+D:\Programming\C#\BisectionMethod\Program\obj\Debug\Program.pdb
