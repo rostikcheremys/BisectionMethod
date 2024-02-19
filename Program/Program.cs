@@ -4,7 +4,7 @@ namespace Program
 {
     abstract class Program
     {
-        private static double F(double x)
+        private static double Function(double x)
         {
             return Math.Pow(x, 2) * Math.Cos(x) - 0.2;
         }
@@ -32,19 +32,20 @@ namespace Program
         {
             double a = Convert.ToDouble(-2 * Math.PI);
             double b = Convert.ToDouble(2 * Math.PI);
+            
             double step = (b - a) / 10;
             
             int count = 0;
-            int interval1 = 0;
-            int interval2 = 0;
+            int intervalA = 0;
+            int intervalB = 0;
 
             double[] x = new double[10]; 
             double[] fx = new double[10]; 
             
             for (int i = 0; count < 10; i++)
             {
-                fx[i] = F(a + i * step);
-                x[i] = (a + i * step);
+                fx[i] = Function(a + i * step);
+                x[i] = a + i * step;
                 count++;
             }
             
@@ -52,23 +53,23 @@ namespace Program
             {
                 if (fx[i] < 0)
                 {
-                    interval2 = i;
-                    interval1 = i - 1;
+                    intervalB = i;
+                    intervalA = i - 1;
                     break;
                 }
             }
             
-            double point1 = x[interval1];
-            double point2 = x[interval2];
+            double pointA = x[intervalA];
+            double pointB = x[intervalB];
             
-            if (F(point1) * F(point2) > 0)
+            if (Function(pointA) * Function(pointB) > 0)
             {
                 Console.WriteLine("Неправильний iнтервал!");
                 return;
             }
             
-            double result = BisectionMethod(F, point1, point2, 0.1);
-            Console.WriteLine($"F(x): {F(result)}");
+            double result = BisectionMethod(Function, pointA, pointB, 0.1);
+            Console.WriteLine($"F(x): {Function(result)}");
         }
     }
 }
