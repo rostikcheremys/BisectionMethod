@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace Program
 {
@@ -31,51 +30,45 @@ namespace Program
         
         public static void Main()
         {
-            double a = -6.283;
+            double a = Convert.ToDouble(-2 * Math.PI);
+            double b = Convert.ToDouble(2 * Math.PI);
+            double step = (b - a) / 10;
             
             int count = 0;
+            int interval1 = 0;
+            int interval2 = 0;
 
-            double step = 0.4 * Math.PI;
-            
-            double[] xxx = new double[10]; 
-            double[] intervals = new double[10]; 
+            double[] x = new double[10]; 
+            double[] fx = new double[10]; 
             
             for (int i = 0; count < 10; i++)
             {
-                intervals[i] = F(a + i * step);
-                xxx[i] = (a + i * step);
+                fx[i] = F(a + i * step);
+                x[i] = (a + i * step);
                 count++;
             }
             
-            Console.WriteLine(string.Join(", ", xxx));
-
-           
-            int intervals1 = 0;
-            int intervals2 = 0;
-            
-            for (int i = 1; i < intervals.Length + 1; i++)
+            for (int i = 1; i < fx.Length + 1; i++)
             {
-                if (intervals[i] < 0)
+                if (fx[i] < 0)
                 {
-                    intervals2 = i;
-                    intervals1 = i - 1;
+                    interval2 = i;
+                    interval1 = i - 1;
                     break;
                 }
             }
-            double toch1 = xxx[intervals1];
-            double toch2 = xxx[intervals2];
             
+            double point1 = x[interval1];
+            double point2 = x[interval2];
             
-            if (F(toch1) * F(toch2) > 0)
+            if (F(point1) * F(point2) > 0)
             {
                 Console.WriteLine("Неправильний iнтервал!");
                 return;
             }
             
-            double x = BisectionMethod(F, toch1, toch2, 0.1);
-           
-            
-            Console.WriteLine($"F(x): {F(Math.Round(x, 2))}");
+            double result = BisectionMethod(F, point1, point2, 0.1);
+            Console.WriteLine($"F(x): {F(result)}");
         }
     }
 }
