@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Program
 {
-    class Program
+    abstract class Program
     {
         private static double BisectionMethod(Func<double, double> function, double a, double b, double eps)
         {
-            while (Math.Abs(a - b) > eps)
+            while (Math.Abs(function((a + b) / 2)) > eps)
             {
                 double c = (a + b) / 2;
 
@@ -23,41 +24,23 @@ namespace Program
             return (a + b) / 2;
         }
 
-        private static (double, double) Calculation(Func<double, double> function, double a, double b)
+        private static List<double> FindAllRoots(Func<double, double> function, double a, double b, double step)
         {
-            double step = (b - a) / 10;
+            List<double> roots = new List<double>();
 
-            int intervalA = 0;
-            int intervalB = 0;
-
-            double[] x = new double[10];
-            double[] fx = new double[10];
-
-            for (int i = 0; i < 10; i++)
+            for (double current = a; current <= b; current += step)
             {
-                x[i] = a + i * step;
-                fx[i] = function(a + i * step);
-            }
+                double intervalA = current;
+                double intervalB = current + step;
 
-            for (int i = 1; i < fx.Length + 1; i++)
-            {
-                if (fx[i - 1] * fx[i] < 0)
+                if (function(intervalA) * function(intervalB) <= 0)
                 {
-                    intervalB = i;
-                    intervalA = i - 1;
-                    break;
+                    double root = BisectionMethod(function, intervalA, intervalB, 0.1);
+                    roots.Add(root);
                 }
             }
 
-            double pointA = x[intervalA];
-            double pointB = x[intervalB];
-
-            if (function(pointA) * function(pointB) > 0)
-            {
-                Console.WriteLine("Неправильний iнтервал!");
-            }
-
-            return (pointA, pointB);
+            return roots;
         }
 
         public static void Main()
@@ -67,10 +50,22 @@ namespace Program
             double a = -2 * Math.PI;
             double b = 2 * Math.PI;
 
-            (double, double) interval = Calculation(function, a, b);
+            double step = 0.1;
 
-            double result = BisectionMethod(function, interval.Item1, interval.Item2, 0.1);
-            Console.WriteLine($"F(x): {function(result)}");
+            List<double> allRoots = FindAllRoots(function, a, b, step);
+
+            if (allRoots.Count == 0)
+            {
+                Console.WriteLine("No roots found in the specified interval.");
+            }
+            else
+            {
+                Console.WriteLine("All roots:");
+                foreach (var root in allRoots)
+                {
+                    Console.WriteLine($"F({root}) = {function(root)}");
+                }
+            }
         }
     }
 }
